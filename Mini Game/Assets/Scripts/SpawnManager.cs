@@ -12,7 +12,7 @@ public class SpawnManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SpawnRandomEnemy();
+        StartCoroutine(CreateRandomAmountOfEnemies());
         SpawnCollectibleObject();
     }
 
@@ -24,19 +24,19 @@ public class SpawnManager : MonoBehaviour
 
     void SpawnRandomEnemy()
     {
-        Instantiate(enemyObject, new Vector3(0, 1, 5), enemyObject.transform.rotation);
+        Instantiate(enemyObject, CreateRandomSpawnPosition(), enemyObject.transform.rotation); ;
     }
 
-    void SpawnCollectibleObject()
+    public void SpawnCollectibleObject()
     {
         for (int i = 0; i < coinAmount; i++)
         {
-            Instantiate(collectibleObject, CreateRandomSpawnPos(), collectibleObject.transform.rotation);
+            Instantiate(collectibleObject, CreateRandomSpawnPosition(), collectibleObject.transform.rotation);
         }
 
     }
 
-    Vector3 CreateRandomSpawnPos()
+    Vector3 CreateRandomSpawnPosition()
     {
         float xValue = Random.Range(-areaRange, areaRange);
         float zValue = Random.Range(-areaRange, areaRange);
@@ -45,4 +45,18 @@ public class SpawnManager : MonoBehaviour
         return randomPosition;
     }
 
+    IEnumerator CreateRandomAmountOfEnemies()
+    {
+        while(true) 
+        {
+            int amountOfTime = Random.Range(1, 8);
+            yield return new WaitForSeconds(amountOfTime);
+
+            int amountOfEnemies = Random.Range(1, 3);
+            for (int i = 0; i < amountOfEnemies; i++)
+            {
+                SpawnRandomEnemy();
+            }
+        }
+    }
 }
