@@ -12,6 +12,7 @@ public class SpawnManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //SpawnRandomEnemy();
         StartCoroutine(CreateRandomAmountOfEnemies());
         SpawnCollectibleObject();
     }
@@ -33,7 +34,7 @@ public class SpawnManager : MonoBehaviour
         {
             Instantiate(collectibleObject, CreateRandomSpawnPosition(), collectibleObject.transform.rotation);
         }
-
+        coinAmount = 1;
     }
 
     Vector3 CreateRandomSpawnPosition()
@@ -59,4 +60,5 @@ public class SpawnManager : MonoBehaviour
             }
         }
     }
+
 }
